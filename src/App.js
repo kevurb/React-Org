@@ -16,13 +16,7 @@ function App() {
     equipo:'Programacion'
 
   }])
-
-
-  const cambiarMostrar =() =>{
-    actulizarVista(!mostrarFormulario);
-  }
-  //lista equipos
-  const equipos = [
+  const [equipos, actulizarEquipos] = useState([
     {
     nombre: "Programacion",
       colorPrimario: "#57C278",
@@ -47,7 +41,22 @@ function App() {
       colorSecundario: "#FFEEDF"
     },
 
-]
+])
+ 
+  const cambiarMostrar =() =>{
+    actulizarVista(!mostrarFormulario);
+  }
+// actualizar color de equipo
+  const actulizarColor = (color, nombre) =>{
+    const equiposActulizados = equipos.map((equipo)=>{
+      if(equipo.nombre === nombre ){
+        equipo.colorPrimario = color
+      }
+      return equipo
+    })
+      //console.log(color)
+      actulizarEquipos(equiposActulizados);
+  }
   const registrarColaborador= (colaborador)=>{
     console.log("Nuevo Colab",colaborador)
     //Spread operator  ... -> copia elemento
@@ -75,6 +84,7 @@ function App() {
       key={equipo.nombre}
       colaboradores = {colaboradores.filter(colaborador => colaborador.equipo === equipo.nombre)}
       eliminarColaborador = {eliminarColaborador}
+      actulizarColor = {actulizarColor}
       />)}
        <Footer></Footer>
     </div>

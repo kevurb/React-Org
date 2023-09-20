@@ -126,7 +126,7 @@ function App() {
 
  // funcion like 
  const like =(id)=>{
-  console.log("Like", id);
+ // console.log("Like", id);
   const colaboradoresActualizados = colaboradores.map((colaborador) => {
       if(colaborador.id === id){
         colaborador.fav = !colaborador.fav

@@ -6,7 +6,7 @@ const Footer =()=>{
         <a href="https://www.fb.com/kostone1">
             <img src="/img/facebook.png" alt="facebook" />
         </a>
-        <a href="https://www.x.com/kurbinam">
+        <a href="https://www.x.com/KevinUrbinaM">
             <img src="/img/twitter.png" alt="twitter" />
         </a>
         <a href="https://www.instagram.com/four_n4mes">

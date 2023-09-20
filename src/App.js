@@ -8,7 +8,8 @@ import Footer from './componentes/Footer';
 import { v4 as uuid } from 'uuid';
 
 function App() {
-  const [mostrarFormulario,actulizarVista] = useState(true)
+  //estados
+  const [mostrarFormulario,actulizarVista] = useState(false)
   const [colaboradores, actualizarColaboradores] = useState([
     {
     id: uuid(),
@@ -16,6 +17,7 @@ function App() {
     foto: "https://github.com/harlandlohora.png",
     nombre: "Harland Lohora",
     puesto: "Instructor",
+    fav: true,
     
   },
   {
@@ -24,7 +26,7 @@ function App() {
     foto: "/logo512.png",
     nombre: "Genesys Rondón",
     puesto: "Desarrolladora de software e instructora",
-    
+    fav: true,
   },
   {
     id: uuid(),
@@ -32,7 +34,7 @@ function App() {
     foto: "https://github.com/JeanmarieAluraLatam.png",
     nombre: "Jeanmarie Quijada",
     puesto: "Instructora en Alura Latam",
-    
+    fav: false,
   },
   {
     id: uuid(),
@@ -40,6 +42,7 @@ function App() {
     foto: "https://github.com/christianpva.png",
     nombre: "Christian Velasco",
     puesto: "Head de Alura e Instructor",
+    fav: false,
     
   },
   {
@@ -48,6 +51,7 @@ function App() {
     foto: "https://github.com/JoseDarioGonzalezCha.png",
     nombre: "Jose Gonzalez",
     puesto: "Dev FullStack",
+    fav: true,
     
   }])
   const [equipos, actulizarEquipos] = useState([
@@ -90,6 +94,7 @@ function App() {
 
 ])
  
+//FUNCIONES DE ACTULIZAR ESTADOS 
   const cambiarMostrar =() =>{
     actulizarVista(!mostrarFormulario);
   }
@@ -114,13 +119,23 @@ function App() {
     const newColaboradores = colaboradores.filter((colaborador) => colaborador.id !== id)
     actualizarColaboradores(newColaboradores);
  }
-
  //crear equipo
-
  const crearEquipo = (nuevoEquipo) =>{
     actulizarEquipos([...equipos, {...nuevoEquipo, is: uuid()}]);
  }
-  
+
+ // funcion like 
+ const like =(id)=>{
+  console.log("Like", id);
+  const colaboradoresActualizados = colaboradores.map((colaborador) => {
+      if(colaborador.id === id){
+        colaborador.fav = !colaborador.fav
+      }
+       return colaborador
+  })
+    actualizarColaboradores(colaboradoresActualizados)
+ }
+
   //ternario -> condicion ? (si) seMuestra : NoMuestra (no)
     return (
     <div className ="app">
@@ -141,6 +156,7 @@ function App() {
       colaboradores = {colaboradores.filter(colaborador => colaborador.equipo === equipo.nombre)}
       eliminarColaborador = {eliminarColaborador}
       actulizarColor = {actulizarColor}
+      like = {like}
       />)}
        <Footer></Footer>
     </div>

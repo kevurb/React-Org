@@ -5,38 +5,85 @@ import Formulario from './componentes/Form/Formulario.js';
 import Organizacion from './componentes/Organizacion/index.js'
 import Equipo from './componentes/Equipo';
 import Footer from './componentes/Footer';
-
+import { v4 as uuid } from 'uuid';
 
 function App() {
-  const [mostrarFormulario,actulizarVista] = useState(false)
-  const [colaboradores, actualizarColaboradores] = useState([{
-    nombre:'Kevin urbina',
-    puesto: 'DevOps',
-    foto:'/logo192.png',
-    equipo:'Programacion'
-
+  const [mostrarFormulario,actulizarVista] = useState(true)
+  const [colaboradores, actualizarColaboradores] = useState([
+    {
+    id: uuid(),
+    equipo: "Front End",
+    foto: "https://github.com/harlandlohora.png",
+    nombre: "Harland Lohora",
+    puesto: "Instructor",
+    
+  },
+  {
+    id: uuid(),
+    equipo: "Programación",
+    foto: "/logo512.png",
+    nombre: "Genesys Rondón",
+    puesto: "Desarrolladora de software e instructora",
+    
+  },
+  {
+    id: uuid(),
+    equipo: "UX y Diseño",
+    foto: "https://github.com/JeanmarieAluraLatam.png",
+    nombre: "Jeanmarie Quijada",
+    puesto: "Instructora en Alura Latam",
+    
+  },
+  {
+    id: uuid(),
+    equipo: "Programación",
+    foto: "https://github.com/christianpva.png",
+    nombre: "Christian Velasco",
+    puesto: "Head de Alura e Instructor",
+    
+  },
+  {
+    id: uuid(),
+    equipo: "Innovación y Gestión",
+    foto: "https://github.com/JoseDarioGonzalezCha.png",
+    nombre: "Jose Gonzalez",
+    puesto: "Dev FullStack",
+    
   }])
   const [equipos, actulizarEquipos] = useState([
     {
-    nombre: "Programacion",
+      id: uuid(),
+      nombre: "Programación",
       colorPrimario: "#57C278",
       colorSecundario: "#D9F7E9"},
-    {nombre: "Front End",
+    {
+      id: uuid(),
+      nombre: "Front End",
       colorPrimario: "#82CFFA",
       colorSecundario: "#E8F8FF"},
-    {nombre: "Data Science",
+    {
+      id: uuid(),
+      nombre: "Data Science",
       colorPrimario: "#A6D157",
       colorSecundario: "#F0F8E2"},
-    {nombre: "DevOps",
+    {
+      id: uuid(),
+      nombre: "DevOps",
       colorPrimario: "#E06B69",
       colorSecundario: "#FDE7E8"},
-    {nombre: "UX y Diseño",
+    {
+      id: uuid(),
+      nombre: "UX y Diseño",
       colorPrimario: "#DB6EBF",
       colorSecundario: "#FAE9F5"},
-    {nombre: "Móvil",
+    {
+      id: uuid(),
+      nombre: "Móvil",
       colorPrimario: "#FFBA05",
       colorSecundario: "#FFF5D9"},
-    {nombre: "Innovacion y Gestión",
+    {
+      id: uuid(),
+      nombre: "Innovación y Gestión",
       colorPrimario: "#FF8A29",
       colorSecundario: "#FFEEDF"
     },
@@ -47,23 +94,31 @@ function App() {
     actulizarVista(!mostrarFormulario);
   }
 // actualizar color de equipo
-  const actulizarColor = (color, nombre) =>{
+  const actulizarColor = (color, id) =>{
     const equiposActulizados = equipos.map((equipo)=>{
-      if(equipo.nombre === nombre ){
+      if(equipo.id === id ){
         equipo.colorPrimario = color
       }
       return equipo
     })
-      //console.log(color)
+      //console.log(id)
       actulizarEquipos(equiposActulizados);
   }
   const registrarColaborador= (colaborador)=>{
-    console.log("Nuevo Colab",colaborador)
+    //console.log("Nuevo Colab",colaborador)
     //Spread operator  ... -> copia elemento
     actualizarColaboradores([...colaboradores, colaborador])
   }
- const eliminarColaborador = () =>{
-    console.log("COLAB ELIMINADO");
+ const eliminarColaborador = (id) =>{
+
+    const newColaboradores = colaboradores.filter((colaborador) => colaborador.id !== id)
+    actualizarColaboradores(newColaboradores);
+ }
+
+ //crear equipo
+
+ const crearEquipo = (nuevoEquipo) =>{
+    actulizarEquipos([...equipos, {...nuevoEquipo, is: uuid()}]);
  }
   
   //ternario -> condicion ? (si) seMuestra : NoMuestra (no)
@@ -73,8 +128,9 @@ function App() {
       <Header/>
       { 
       mostrarFormulario && <Formulario 
-      equipos={equipos.map((equipo)=>equipo.nombre)}
-      registrarColaborador= {registrarColaborador}
+        equipos={equipos.map((equipo)=>equipo.nombre)}
+        registrarColaborador= {registrarColaborador}
+        crearEquipo={crearEquipo}
       />
       }
       <Organizacion cambiarMostrar={cambiarMostrar}/>
